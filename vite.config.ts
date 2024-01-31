@@ -6,7 +6,16 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "http://localhost:3000/graphql", // Proxy requests from /api to the API server
+      "/api/graphql": {
+        target: "http://localhost:3000/graphql", // Target the new NestJS backend URL
+        // changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+      "/api/auth/login": {
+        target: "http://localhost:3000/auth/login",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/auth\/login/, ""),
+      },
     },
   },
 });
