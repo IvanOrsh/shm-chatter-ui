@@ -9,7 +9,7 @@ interface LoginRequest {
 }
 
 export function useLogin() {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   const login = async (request: LoginRequest) => {
     const res = await fetch(`${API_URL}/auth/login`, {
@@ -21,11 +21,15 @@ export function useLogin() {
     });
 
     if (!res.ok) {
-      setError(true);
+      if (res.status === 401) {
+        setError("Credentials are not valid");
+      } else {
+        setError("Unknown error occurred");
+      }
       return;
     }
 
-    setError(false);
+    setError("");
 
     // apollo:
     // - clear cache, refetch queries
