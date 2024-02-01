@@ -5,10 +5,12 @@ import { Button } from "@mui/material";
 import { Auth } from "./Auth";
 import { useCreateUser } from "../../hooks/useCreateUser";
 import { extractApolloErrorMessage } from "../../utils/error";
+import { useLogin } from "../../hooks/useLogin";
 
 export function SignUp() {
   const [error, setError] = useState("");
   const [createUser] = useCreateUser();
+  const { login } = useLogin();
 
   const onSubmit = async ({
     email,
@@ -26,6 +28,9 @@ export function SignUp() {
           },
         },
       });
+      // redirect to home using login
+      await login({ email, password });
+
       setError("");
     } catch (err) {
       const errorMessage = extractApolloErrorMessage(err);

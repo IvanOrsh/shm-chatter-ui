@@ -1,5 +1,8 @@
+import { PropsWithChildren, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Stack, TextField } from "@mui/material";
-import { PropsWithChildren, useState } from "react";
+
+import { useGetMe } from "../../hooks/useGetMe";
 
 type AuthProps = {
   submitLabel: string;
@@ -12,6 +15,14 @@ export function Auth(props: PropsWithChildren<AuthProps>) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { data } = useGetMe();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data) {
+      navigate("/");
+    }
+  }, [data]);
 
   return (
     <Stack
