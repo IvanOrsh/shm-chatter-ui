@@ -22,7 +22,7 @@ export function Auth(props: PropsWithChildren<AuthProps>) {
     if (data) {
       navigate("/");
     }
-  }, [data]);
+  }, [data, navigate]);
 
   return (
     <Stack
