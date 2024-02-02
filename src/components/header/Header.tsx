@@ -9,8 +9,25 @@ import Navigation from "./Navigation";
 import Settings from "./Settings";
 import { useReactiveVar } from "@apollo/client";
 import { authenticatedVar } from "../../constants/authenticated";
+import type { Page } from "../../interfaces/page";
 
-const pages: string[] = ["Home"];
+const pages: Page[] = [
+  {
+    title: "Home",
+    path: "/",
+  },
+];
+
+const unauthenticatedPages: Page[] = [
+  {
+    title: "Login",
+    path: "/login",
+  },
+  {
+    title: "Sign Up",
+    path: "/signup",
+  },
+];
 
 export default function Header() {
   const authenticated = useReactiveVar(authenticatedVar);
@@ -23,13 +40,13 @@ export default function Header() {
           <Branding />
 
           {/* Mobile Navigation */}
-          <MobileNav pages={pages} />
+          <MobileNav pages={authenticated ? pages : unauthenticatedPages} />
 
           {/* Mobile Branding */}
           <MobileBranding />
 
           {/* Desktop Navigation */}
-          <Navigation pages={pages} />
+          <Navigation pages={authenticated ? pages : unauthenticatedPages} />
 
           {/* Settings */}
           {authenticated && <Settings />}

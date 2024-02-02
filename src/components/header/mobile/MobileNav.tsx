@@ -6,8 +6,11 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
+import type { Page } from "../../../interfaces/page";
+import { router } from "../../Routes";
+
 type MobileNavProps = {
-  pages: string[];
+  pages: Page[];
 };
 
 export default function MobileNav(props: MobileNavProps) {
@@ -54,8 +57,14 @@ export default function MobileNav(props: MobileNavProps) {
         }}
       >
         {pages.map((page) => (
-          <MenuItem key={page} onClick={handleCloseNavMenu}>
-            <Typography textAlign="center">{page}</Typography>
+          <MenuItem
+            key={page.title}
+            onClick={() => {
+              router.navigate(page.path);
+              handleCloseNavMenu();
+            }}
+          >
+            <Typography textAlign="center">{page.title}</Typography>
           </MenuItem>
         ))}
       </Menu>
