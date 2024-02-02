@@ -7,10 +7,14 @@ import MobileNav from "./mobile/MobileNav";
 import MobileBranding from "./mobile/MobileBranding";
 import Navigation from "./Navigation";
 import Settings from "./Settings";
+import { useReactiveVar } from "@apollo/client";
+import { authenticatedVar } from "../../constants/authenticated";
 
-const pages: string[] = [];
+const pages: string[] = ["Home"];
 
 export default function Header() {
+  const authenticated = useReactiveVar(authenticatedVar);
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -28,7 +32,7 @@ export default function Header() {
           <Navigation pages={pages} />
 
           {/* Settings */}
-          <Settings />
+          {authenticated && <Settings />}
         </Toolbar>
       </Container>
     </AppBar>
