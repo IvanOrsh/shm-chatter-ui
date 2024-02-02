@@ -16,6 +16,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/auth\/login/, ""),
       },
+      "/api/auth/logout": {
+        target: "http://localhost:3000/auth/logout",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/auth\/logout/, ""),
+      },
     },
   },
 });
