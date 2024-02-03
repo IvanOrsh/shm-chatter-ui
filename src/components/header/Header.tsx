@@ -1,14 +1,14 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
+import { useReactiveVar } from "@apollo/client";
 
 import Branding from "./Branding";
 import MobileNav from "./mobile/MobileNav";
 import MobileBranding from "./mobile/MobileBranding";
 import Navigation from "./Navigation";
 import Settings from "./Settings";
-import { useReactiveVar } from "@apollo/client";
-import { authenticatedVar } from "../../constants/authenticated";
+import { authenticatedVar } from "@app/providers/apollo";
 import type { Page } from "../../interfaces/page";
 
 const pages: Page[] = [

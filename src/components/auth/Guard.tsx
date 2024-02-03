@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect } from "react";
 
 import { useGetMe } from "../../hooks/useGetMe";
 import { excludedRoutes } from "@app/providers/router";
-import { authenticatedVar } from "../../constants/authenticated";
+import { authenticatedVar } from "@app/providers/apollo";
 
 export function Guard({ children }: PropsWithChildren) {
   const { data: user } = useGetMe();
