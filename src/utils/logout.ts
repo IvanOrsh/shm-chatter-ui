@@ -1,4 +1,4 @@
-import { router } from "../components/Routes";
+import { router } from "@app/providers/router";
 import client from "../constants/apollo-client";
 import { authenticatedVar } from "../constants/authenticated";
 

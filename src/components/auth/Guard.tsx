@@ -1,7 +1,7 @@
 import { PropsWithChildren, useEffect } from "react";
 
 import { useGetMe } from "../../hooks/useGetMe";
-import { excludedRoutes } from "../../constants/excluded-routes";
+import { excludedRoutes } from "@app/providers/router";
 import { authenticatedVar } from "../../constants/authenticated";
 
 export function Guard({ children }: PropsWithChildren) {

@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import ForumIcon from "@mui/icons-material/Forum";
 
-import { router } from "../Routes";
+import { router } from "@app/providers/router";
 
 export default function Branding() {
   return (
