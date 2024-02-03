@@ -4,7 +4,7 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import { useReactiveVar } from "@apollo/client";
 
-import { snackVar } from "@app/providers/apollo";
+import { snackVar } from "@shared/config/apolloClientConfig/reactive-vars/snack-var";
 
 export default function Snackbar() {
   const snack = useReactiveVar(snackVar);

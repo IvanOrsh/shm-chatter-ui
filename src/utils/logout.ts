@@ -1,5 +1,5 @@
 import { router } from "@app/providers/router";
-import { authenticatedVar } from "@app/providers/apollo";
+import { authenticatedVar } from "@shared/config/apolloClientConfig/reactive-vars/authenticated-var";
 import { client } from "@shared/config/apolloClientConfig/apollo-client";
 
 export const onLogout = () => {

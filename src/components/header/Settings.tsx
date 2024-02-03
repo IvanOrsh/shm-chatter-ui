@@ -9,7 +9,7 @@ import Menu from "@mui/material/Menu";
 
 import { useLogout } from "../../hooks/useLogout";
 import { onLogout } from "../../utils/logout";
-import { snackVar } from "@app/providers/apollo";
+import { snackVar } from "@shared/config/apolloClientConfig/reactive-vars/snack-var";
 import { UNKNOWN_ERROR_SNACK_MESSAGE } from "@shared/constants/errors";
 
 export default function Settings() {
