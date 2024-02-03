@@ -6,6 +6,7 @@ import { Auth } from "./Auth";
 import { useCreateUser } from "../../hooks/useCreateUser";
 import { extractApolloErrorMessage } from "../../utils/error";
 import { useLogin } from "../../hooks/useLogin";
+import { UNKNOWN_ERROR_MESSAGE } from "@shared/constants/errors";
 
 export function SignUp() {
   const [error, setError] = useState("");
@@ -39,7 +40,7 @@ export function SignUp() {
         return;
       }
 
-      setError("Unknown error occurred");
+      setError(UNKNOWN_ERROR_MESSAGE);
     }
   };
 

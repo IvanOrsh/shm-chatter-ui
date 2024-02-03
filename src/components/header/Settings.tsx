@@ -9,6 +9,8 @@ import Menu from "@mui/material/Menu";
 
 import { useLogout } from "../../hooks/useLogout";
 import { onLogout } from "../../utils/logout";
+import { snackVar } from "@app/providers/apollo";
+import { UNKNOWN_ERROR_SNACK_MESSAGE } from "@shared/constants/errors";
 
 export default function Settings() {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -49,9 +51,13 @@ export default function Settings() {
         <MenuItem
           key={"logout"}
           onClick={async () => {
-            await logout();
-            onLogout();
-            handleCloseUserMenu();
+            try {
+              await logout();
+              onLogout();
+              handleCloseUserMenu();
+            } catch (err) {
+              snackVar(UNKNOWN_ERROR_SNACK_MESSAGE);
+            }
           }}
         >
           <Typography textAlign="center">Logout</Typography>
