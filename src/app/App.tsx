@@ -11,7 +11,7 @@ import { ApolloProvider } from "@apollo/client";
 import { router } from "./providers/router/config/routes";
 import { client } from "@shared/config/apolloClientConfig/apollo-client";
 import { Guard } from "../components/auth/Guard";
-import Header from "../components/header/Header";
+import { Header } from "@widgets/header";
 import { Snackbar } from "@widgets/snackbar";
 
 const darkTheme = createTheme({

@@ -9,7 +9,7 @@ import MobileBranding from "./mobile/MobileBranding";
 import Navigation from "./Navigation";
 import Settings from "./Settings";
 import { authenticatedVar } from "@shared/config/apolloClientConfig/reactive-vars/authenticated-var";
-import type { Page } from "../../interfaces/page";
+import type { Page } from "../../../interfaces/page";
 
 const pages: Page[] = [
   {
