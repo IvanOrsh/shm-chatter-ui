@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import client from "../constants/apollo-client";
+import { client } from "@shared/config/apolloClientConfig/apollo-client";
 import { API_URL } from "@shared/constants/urls";
 import { UNKNOWN_ERROR_MESSAGE } from "@shared/constants/errors";
 

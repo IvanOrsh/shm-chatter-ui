@@ -9,7 +9,7 @@ import { RouterProvider } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 
 import { router } from "./providers/router/config/routes";
-import client from "../constants/apollo-client";
+import { client } from "@shared/config/apolloClientConfig/apollo-client";
 import { Guard } from "../components/auth/Guard";
 import Header from "../components/header/Header";
 import { Snackbar } from "@widgets/snackbar";

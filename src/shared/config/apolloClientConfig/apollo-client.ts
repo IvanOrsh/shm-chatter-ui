@@ -3,7 +3,7 @@ import { onError } from "@apollo/client/link/error";
 
 import { API_URL } from "@shared/constants/urls";
 import { excludedRoutes } from "@app/providers/router";
-import { onLogout } from "../utils/logout";
+import { onLogout } from "../../../utils/logout";
 
 const logoutLink = onError((error) => {
   if (
@@ -21,9 +21,7 @@ const httpLink = new HttpLink({
   uri: `${API_URL}/graphql`,
 });
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: logoutLink.concat(httpLink),
 });
-
-export default client;
