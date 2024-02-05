@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-import type { Page } from "../../../interfaces/page";
+import type { Page } from "../../../../interfaces/page";
 import { router } from "@app/providers/router";
 
 type MobileNavProps = {
