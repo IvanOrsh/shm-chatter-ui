@@ -10,7 +10,7 @@ export function ThemeProvider({ children }: PropsWithChildren) {
   return (
     <MuiThemeProvider theme={theme}>
       <ColorModeContext.Provider value={colorMode}>
-        <CssBaseline />
+        <CssBaseline enableColorScheme />
         {children}
       </ColorModeContext.Provider>
     </MuiThemeProvider>
