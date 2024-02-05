@@ -1,8 +1,13 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
 import { useReactiveVar } from "@apollo/client";
+import { useTheme } from "@mui/material";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
+import { useColorModeContext } from "@app/providers/theme";
 import Branding from "./Branding";
 import MobileNav from "./mobile/MobileNav";
 import MobileBranding from "./mobile/MobileBranding";
@@ -31,6 +36,8 @@ const unauthenticatedPages: Page[] = [
 
 export default function Header() {
   const authenticated = useReactiveVar(authenticatedVar);
+  const colorMode = useColorModeContext();
+  const theme = useTheme();
 
   return (
     <AppBar position="static">
@@ -47,6 +54,19 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <Navigation pages={authenticated ? pages : unauthenticatedPages} />
+
+          {/* TODO: extract to a separate component */}
+          <IconButton
+            color="inherit"
+            onClick={colorMode.toggleColorMode}
+            sx={{ mr: 2 }}
+          >
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
+          </IconButton>
 
           {/* Settings */}
           {authenticated && <Settings />}

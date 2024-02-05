@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { createTheme } from "@mui/material";
+import createTheme from "@mui/material/styles/createTheme";
 
 export function useColorMode() {
   const [mode, setMode] = useState<"light" | "dark">("light");
@@ -18,15 +18,6 @@ export function useColorMode() {
       createTheme({
         palette: {
           mode,
-        },
-        components: {
-          MuiButton: {
-            styleOverrides: {
-              root: {
-                color: "skyblue",
-              },
-            },
-          },
         },
       }),
     [mode]
