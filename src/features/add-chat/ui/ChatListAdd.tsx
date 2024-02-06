@@ -94,16 +94,17 @@ export default function ChatListAdd(props: ChatListAddProps) {
           )}
           <Button
             variant="outlined"
-            onClick={() =>
-              createChat({
+            onClick={async () => {
+              await createChat({
                 variables: {
                   createChatInput: {
                     isPrivate,
                     name: name || undefined,
                   },
                 },
-              })
-            }
+              });
+              handleClose();
+            }}
           >
             Save
           </Button>
