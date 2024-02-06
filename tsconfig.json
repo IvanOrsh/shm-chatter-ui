@@ -29,7 +29,8 @@
       "@entities/*": ["./entities/*"],
       "@widgets/*": ["./widgets/*"],
       "@shared/*": ["./shared/*"],
-      "@gql/*": ["./gql/*"]
+      "@gql/*": ["./gql/*"],
+      "@fragments/*": ["./fragments/*"]
     }
   },
   "include": ["src"],
