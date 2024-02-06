@@ -6,9 +6,12 @@ import Divider from "@mui/material/Divider";
 import ChatListItem from "./chat-list-item/ChatListItem";
 import ChatListHeader from "./chat-list-header/ChatListHeader";
 import { ChatListAdd } from "@features/add-chat";
+import { useGetChats } from "../model/hooks/useGetChats";
 
 export default function ChatList() {
   const [chatListAddVisible, setChatListAddVisible] = useState(false);
+
+  const { data } = useGetChats();
 
   return (
     <>
@@ -35,12 +38,10 @@ export default function ChatList() {
             overflow: "auto",
           }}
         >
-          <ChatListItem />
-          <ChatListItem />
-          <ChatListItem />
-          <ChatListItem />
-          <ChatListItem />
-          <ChatListItem />
+          {data?.chats.map((chat) => (
+            <ChatListItem key={chat._id} name={chat.name} />
+          ))}
+
           <ChatListItem />
           <ChatListItem />
           <ChatListItem />

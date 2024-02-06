@@ -5,7 +5,13 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 
-export default function ChatListItem() {
+type ChatListItemProps = {
+  name?: string | null;
+};
+
+export default function ChatListItem(props: ChatListItemProps) {
+  const { name } = props;
+
   return (
     <>
       <ListItem alignItems="flex-start">
@@ -13,7 +19,7 @@ export default function ChatListItem() {
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
         <ListItemText
-          primary="Brunch this weekend?"
+          primary={name}
           secondary={
             <>
               <Typography
