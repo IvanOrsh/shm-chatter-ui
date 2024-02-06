@@ -3,7 +3,7 @@ import { onError } from "@apollo/client/link/error";
 
 import { API_URL } from "@shared/constants/urls";
 import { excludedRoutes } from "@app/providers/router";
-import { onLogout } from "../../../utils/logout";
+import { onLogout } from "@features/auth-by-email";
 
 const logoutLink = onError((error) => {
   if (
