@@ -9,8 +9,7 @@ import { Guard } from "./providers/router/guards/Guard";
 import { client } from "@shared/config/apolloClientConfig/apollo-client";
 import { Header } from "@widgets/header";
 import { Snackbar } from "@widgets/snackbar";
-import { ChatList } from "@widgets/chat-list";
-
+import { ChatList } from "@features/get-chat";
 const Routes = () => {
   return (
     <Container>
