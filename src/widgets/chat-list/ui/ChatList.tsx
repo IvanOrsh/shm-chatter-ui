@@ -5,7 +5,7 @@ import Divider from "@mui/material/Divider";
 
 import ChatListItem from "./chat-list-item/ChatListItem";
 import ChatListHeader from "./chat-list-header/ChatListHeader";
-import ChatListAdd from "./chat-list-add/ChatListAdd";
+import { ChatListAdd } from "@features/add-chat";
 
 export default function ChatList() {
   const [chatListAddVisible, setChatListAddVisible] = useState(false);

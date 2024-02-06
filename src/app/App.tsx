@@ -2,14 +2,14 @@ import { RouterProvider } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import { Container, Grid } from "@mui/material";
 
+import { ThemeProvider } from "./providers/theme";
 import { router } from "./providers/router/config/routes";
-import { client } from "@shared/config/apolloClientConfig/apollo-client";
+import { usePath } from "./providers/router";
 import { Guard } from "./providers/router/guards/Guard";
+import { client } from "@shared/config/apolloClientConfig/apollo-client";
 import { Header } from "@widgets/header";
 import { Snackbar } from "@widgets/snackbar";
-import { ThemeProvider } from "./providers/theme";
-import ChatList from "components/chat-list/ChatList";
-import { usePath } from "./providers/router";
+import { ChatList } from "@widgets/chat-list";
 
 const Routes = () => {
   return (
