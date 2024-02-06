@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 
 import { Auth } from "./Auth";
-import { useLogin } from "../../hooks/useLogin";
+import { useLogin } from "../model/hooks/useLogin";
 
 export function Login() {
   const { login, error } = useLogin();

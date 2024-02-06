@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 
-import { useLogout } from "hooks/useLogout";
+import { useLogout } from "@features/auth-by-email/model/hooks/useLogout";
 import { onLogout } from "../../../utils/logout";
 import { snackVar } from "@shared/config/apolloClientConfig/reactive-vars/snack-var";
 import { UNKNOWN_ERROR_SNACK_MESSAGE } from "@shared/constants/errors";

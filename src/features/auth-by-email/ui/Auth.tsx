@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Stack, TextField } from "@mui/material";
 
-import { useGetMe } from "../../hooks/useGetMe";
+import { useGetMe } from "../model/hooks/useGetMe";
 
 type AuthProps = {
   submitLabel: string;
