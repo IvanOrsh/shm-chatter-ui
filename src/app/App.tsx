@@ -4,7 +4,7 @@ import { Container, Grid } from "@mui/material";
 
 import { router } from "./providers/router/config/routes";
 import { client } from "@shared/config/apolloClientConfig/apollo-client";
-import { Guard } from "../components/auth/Guard";
+import { Guard } from "./providers/router/guards/Guard";
 import { Header } from "@widgets/header";
 import { Snackbar } from "@widgets/snackbar";
 import { ThemeProvider } from "./providers/theme";

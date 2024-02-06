@@ -1,7 +1,8 @@
 import { PropsWithChildren, useEffect } from "react";
 
-import { useGetMe } from "../../hooks/useGetMe";
-import { excludedRoutes, usePath } from "@app/providers/router";
+import { excludedRoutes } from "../config/excluded-routes";
+import { usePath } from "../lib/hooks/usePath";
+import { useGetMe } from "@features/auth-by-email";
 import { authenticatedVar } from "@shared/config/apolloClientConfig/reactive-vars/authenticated-var";
 import { snackVar } from "@shared/config/apolloClientConfig/reactive-vars/snack-var";
 import { UNKNOWN_ERROR_SNACK_MESSAGE } from "@shared/constants/errors";
