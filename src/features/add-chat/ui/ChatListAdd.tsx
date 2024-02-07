@@ -14,6 +14,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { useCreateChat } from "../model/hooks/useCreateChat";
+import { UNKNOWN_ERROR_MESSAGE } from "@shared/constants/errors";
 
 type ChatListAddProps = {
   open: boolean;
@@ -23,13 +24,21 @@ type ChatListAddProps = {
 export default function ChatListAdd(props: ChatListAddProps) {
   const { open, handleClose } = props;
 
-  const [isPrivate, setIsPrivate] = useState(true); // private by default
-  const [name, setName] = useState<string | undefined>();
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [error, setError] = useState("");
+  const [name, setName] = useState("");
 
   const [createChat] = useCreateChat();
 
+  const onClose = () => {
+    setError("");
+    setIsPrivate(false);
+    setName("");
+    handleClose();
+  };
+
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={onClose}>
       <Box
         sx={{
           position: "absolute" as const,
@@ -55,7 +64,7 @@ export default function ChatListAdd(props: ChatListAddProps) {
               }}
               control={
                 <Switch
-                  defaultChecked
+                  defaultChecked={isPrivate}
                   value={isPrivate}
                   onChange={(event) => setIsPrivate(event.target.checked)}
                 />
@@ -89,21 +98,32 @@ export default function ChatListAdd(props: ChatListAddProps) {
           ) : (
             <TextField
               label="Name"
+              error={!!error}
+              helperText={error}
               onChange={(event) => setName(event.target.value)}
             />
           )}
           <Button
             variant="outlined"
             onClick={async () => {
-              await createChat({
-                variables: {
-                  createChatInput: {
-                    isPrivate,
-                    name: name || undefined,
+              if (!name.length) {
+                setError("Chat name is required");
+                return;
+              }
+
+              try {
+                await createChat({
+                  variables: {
+                    createChatInput: {
+                      isPrivate,
+                      name: name || undefined,
+                    },
                   },
-                },
-              });
-              handleClose();
+                });
+                onClose();
+              } catch (err) {
+                setError(UNKNOWN_ERROR_MESSAGE);
+              }
             }}
           >
             Save
