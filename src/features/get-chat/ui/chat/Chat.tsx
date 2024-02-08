@@ -1,4 +1,10 @@
 import { useParams } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import SendIcon from "@mui/icons-material/Send";
 
 import { useGetChat } from "@features/get-chat/model/hooks/useGetChat";
 
@@ -6,5 +12,36 @@ export default function Chat() {
   const params = useParams();
   const { data } = useGetChat({ _id: params._id! });
 
-  return <h1>{data?.chat.name}</h1>;
+  return (
+    <Stack
+      sx={{
+        height: "100%",
+        justifyContent: "space-between",
+      }}
+    >
+      <h1>{data?.chat.name}</h1>
+
+      {/* message bar */}
+      <Paper
+        sx={{
+          p: "2px 4px",
+          display: "flex",
+          justifySelf: "flex-end",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1, width: "100%" }}
+          placeholder="Message"
+        />
+
+        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+
+        <IconButton color="primary" sx={{ p: "10px" }}>
+          <SendIcon />
+        </IconButton>
+      </Paper>
+    </Stack>
+  );
 }

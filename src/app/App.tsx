@@ -12,7 +12,7 @@ import { Snackbar } from "@widgets/snackbar";
 import { ChatList } from "@features/get-chat";
 const Routes = () => {
   return (
-    <Container>
+    <Container sx={{ height: "100%" }}>
       <RouterProvider router={router} />
     </Container>
   );
