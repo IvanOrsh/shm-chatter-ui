@@ -21,12 +21,14 @@ const Routes = () => {
 function App() {
   const { path } = usePath();
 
+  const showChatList = path === "/" || path.includes("chats");
+
   return (
     <ApolloProvider client={client}>
       <ThemeProvider>
         <Header />
         <Guard>
-          {path === "/" ? (
+          {showChatList ? (
             <Grid container>
               <Grid item md={3}>
                 <ChatList />
