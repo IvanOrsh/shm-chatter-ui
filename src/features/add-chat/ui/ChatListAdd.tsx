@@ -15,6 +15,7 @@ import Button from "@mui/material/Button";
 
 import { useCreateChat } from "../model/hooks/useCreateChat";
 import { UNKNOWN_ERROR_MESSAGE } from "@shared/constants/errors";
+import { router } from "@app/providers/router";
 
 type ChatListAddProps = {
   open: boolean;
@@ -112,7 +113,7 @@ export default function ChatListAdd(props: ChatListAddProps) {
               }
 
               try {
-                await createChat({
+                const chat = await createChat({
                   variables: {
                     createChatInput: {
                       isPrivate,
@@ -121,6 +122,7 @@ export default function ChatListAdd(props: ChatListAddProps) {
                   },
                 });
                 onClose();
+                router.navigate(`/chats/${chat.data?.createChat._id}`);
               } catch (err) {
                 setError(UNKNOWN_ERROR_MESSAGE);
               }
