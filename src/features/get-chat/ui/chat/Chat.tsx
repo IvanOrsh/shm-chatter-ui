@@ -6,16 +6,19 @@ import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
+import Box from "@mui/material/Box";
 
 import { useGetChat } from "@features/get-chat/model/hooks/useGetChat";
 import { useCreateMessage } from "@features/get-chat/model/hooks/useCreateMessage";
+import { useGetMessages } from "@features/get-chat/model/hooks/useGetMessages";
 
 export default function Chat() {
   const params = useParams();
-  const chat_id = params._id;
+  const chatId = params._id;
   const [message, setMessage] = useState("");
-  const { data } = useGetChat({ _id: chat_id! });
+  const { data } = useGetChat({ _id: chatId! });
   const [createMessage] = useCreateMessage();
+  const { data: messages } = useGetMessages({ chatId: chatId! });
 
   return (
     <Stack
@@ -25,6 +28,12 @@ export default function Chat() {
       }}
     >
       <h1>{data?.chat.name}</h1>
+
+      <Box>
+        {messages?.messages.map((message) => (
+          <p key={message._id}>{message.content}</p>
+        ))}
+      </Box>
 
       {/* message bar */}
       <Paper
@@ -53,7 +62,7 @@ export default function Chat() {
               variables: {
                 createMessageInput: {
                   content: message,
-                  chatId: chat_id!,
+                  chatId: chatId!,
                 },
               },
             });
