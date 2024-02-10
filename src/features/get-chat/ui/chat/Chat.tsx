@@ -20,6 +20,18 @@ export default function Chat() {
   const [createMessage] = useCreateMessage(chatId!);
   const { data: messages } = useGetMessages({ chatId: chatId! });
 
+  const handleCreateMessage = async () => {
+    await createMessage({
+      variables: {
+        createMessageInput: {
+          content: message,
+          chatId: chatId!,
+        },
+      },
+    });
+    setMessage("");
+  };
+
   return (
     <Stack
       sx={{
@@ -50,6 +62,11 @@ export default function Chat() {
           placeholder="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={async (e) => {
+            if (e.key === "Enter") {
+              await handleCreateMessage();
+            }
+          }}
         />
 
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
@@ -57,16 +74,7 @@ export default function Chat() {
         <IconButton
           color="primary"
           sx={{ p: "10px" }}
-          onClick={() => {
-            createMessage({
-              variables: {
-                createMessageInput: {
-                  content: message,
-                  chatId: chatId!,
-                },
-              },
-            });
-          }}
+          onClick={handleCreateMessage}
         >
           <SendIcon />
         </IconButton>
