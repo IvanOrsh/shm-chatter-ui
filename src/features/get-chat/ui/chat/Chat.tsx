@@ -17,7 +17,7 @@ export default function Chat() {
   const chatId = params._id;
   const [message, setMessage] = useState("");
   const { data } = useGetChat({ _id: chatId! });
-  const [createMessage] = useCreateMessage();
+  const [createMessage] = useCreateMessage(chatId!);
   const { data: messages } = useGetMessages({ chatId: chatId! });
 
   return (
