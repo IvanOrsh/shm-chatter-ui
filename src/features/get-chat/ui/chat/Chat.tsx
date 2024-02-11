@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
@@ -7,6 +7,9 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
 
 import { useGetChat } from "@features/get-chat/model/hooks/useGetChat";
 import { useCreateMessage } from "@features/get-chat/model/hooks/useCreateMessage";
@@ -14,11 +17,19 @@ import { useGetMessages } from "@features/get-chat/model/hooks/useGetMessages";
 
 export default function Chat() {
   const params = useParams();
+  const location = useLocation();
   const chatId = params._id;
   const [message, setMessage] = useState("");
+
   const { data } = useGetChat({ _id: chatId! });
   const [createMessage] = useCreateMessage(chatId!);
   const { data: messages } = useGetMessages({ chatId: chatId! });
+
+  const divRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToBottom = () => {
+    divRef.current?.scrollIntoView();
+  };
 
   const handleCreateMessage = async () => {
     await createMessage({
@@ -30,7 +41,13 @@ export default function Chat() {
       },
     });
     setMessage("");
+    scrollToBottom();
   };
+
+  useEffect(() => {
+    setMessage("");
+    scrollToBottom();
+  }, [location]);
 
   return (
     <Stack
@@ -41,10 +58,45 @@ export default function Chat() {
     >
       <h1>{data?.chat.name}</h1>
 
-      <Box>
+      <Box
+        sx={{
+          maxHeight: "70vh",
+          overflow: "auto",
+        }}
+      >
         {messages?.messages.map((message) => (
-          <p key={message._id}>{message.content}</p>
+          <Grid
+            container
+            alignItems="center"
+            marginBottom="1rem"
+            key={message._id}
+          >
+            <Grid item xs={3} md={1}>
+              <Avatar
+                src=""
+                sx={{
+                  height: "52px",
+                  width: "52px",
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={9} md={11}>
+              <Stack>
+                <Paper sx={{ width: "fit-content" }}>
+                  <Typography sx={{ padding: "0.9rem" }}>
+                    {message.content}
+                  </Typography>
+                </Paper>
+                <Typography variant="caption" sx={{ ml: "0.25rem" }}>
+                  {new Date(message.createdAt).toLocaleTimeString()}
+                </Typography>
+              </Stack>
+            </Grid>
+          </Grid>
         ))}
+        {/* scroll to most recent message */}
+        <div ref={divRef}></div>
       </Box>
 
       {/* message bar */}
