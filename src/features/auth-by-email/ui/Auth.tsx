@@ -29,10 +29,7 @@ export function Auth(props: PropsWithChildren<AuthProps>) {
       spacing={3}
       sx={{
         height: "100vh",
-        maxWidth: {
-          sm: "70%",
-          md: "30%",
-        },
+        maxWidth: 360,
         marginInline: "auto",
         justifyContent: "center",
       }}

@@ -43,7 +43,6 @@ export default function ChatList() {
         <List
           sx={{
             width: "100%",
-            maxWidth: 360,
             bgcolor: "background.paper",
             maxHeight: "90vh",
             overflow: "auto",
