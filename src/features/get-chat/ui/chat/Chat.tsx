@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import { useGetChat } from "@features/get-chat/model/hooks/useGetChat";
 import { useCreateMessage } from "@features/get-chat/model/hooks/useCreateMessage";
 import { useGetMessages } from "@features/get-chat/model/hooks/useGetMessages";
+import { useMessageCreated } from "@features/get-chat/model/hooks/useMessageCreated";
 
 export default function Chat() {
   const params = useParams();
@@ -24,6 +25,9 @@ export default function Chat() {
   const { data } = useGetChat({ _id: chatId! });
   const [createMessage] = useCreateMessage(chatId!);
   const { data: messages } = useGetMessages({ chatId: chatId! });
+  const { data: latestMessage } = useMessageCreated({ chatId: chatId! });
+
+  console.log(latestMessage);
 
   const divRef = useRef<HTMLDivElement | null>(null);
 
