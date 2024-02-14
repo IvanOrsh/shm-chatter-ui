@@ -23,11 +23,13 @@ export default function Chat() {
   const [message, setMessage] = useState("");
 
   const { data } = useGetChat({ _id: chatId! });
-  const [createMessage] = useCreateMessage(chatId!);
-  const { data: messages } = useGetMessages({ chatId: chatId! });
-  const { data: latestMessage } = useMessageCreated({ chatId: chatId! });
+  const [createMessage] = useCreateMessage();
 
-  console.log(latestMessage);
+  // already existing messages for this chat:
+  const { data: messages } = useGetMessages({ chatId: chatId! });
+
+  // subscribe to newest message
+  useMessageCreated({ chatId: chatId! });
 
   const divRef = useRef<HTMLDivElement | null>(null);
 
@@ -51,7 +53,7 @@ export default function Chat() {
   useEffect(() => {
     setMessage("");
     scrollToBottom();
-  }, [location]);
+  }, [location, messages]);
 
   return (
     <Stack
@@ -68,37 +70,44 @@ export default function Chat() {
           overflow: "auto",
         }}
       >
-        {messages?.messages.map((message) => (
-          <Grid
-            container
-            alignItems="center"
-            marginBottom="1rem"
-            key={message._id}
-          >
-            <Grid item xs={2} lg={1}>
-              <Avatar
-                src=""
-                sx={{
-                  height: "52px",
-                  width: "52px",
-                }}
-              />
-            </Grid>
+        {messages &&
+          [...messages.messages]
+            .sort(
+              (a, b) =>
+                new Date(a.createdAt).getTime() -
+                new Date(b.createdAt).getTime()
+            )
+            .map((message) => (
+              <Grid
+                container
+                alignItems="center"
+                marginBottom="1rem"
+                key={message._id}
+              >
+                <Grid item xs={2} lg={1}>
+                  <Avatar
+                    src=""
+                    sx={{
+                      height: "52px",
+                      width: "52px",
+                    }}
+                  />
+                </Grid>
 
-            <Grid item xs={10} lg={11}>
-              <Stack>
-                <Paper sx={{ width: "fit-content" }}>
-                  <Typography sx={{ padding: "0.9rem" }}>
-                    {message.content}
-                  </Typography>
-                </Paper>
-                <Typography variant="caption" sx={{ ml: "0.25rem" }}>
-                  {new Date(message.createdAt).toLocaleTimeString()}
-                </Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        ))}
+                <Grid item xs={10} lg={11}>
+                  <Stack>
+                    <Paper sx={{ width: "fit-content" }}>
+                      <Typography sx={{ padding: "0.9rem" }}>
+                        {message.content}
+                      </Typography>
+                    </Paper>
+                    <Typography variant="caption" sx={{ ml: "0.25rem" }}>
+                      {new Date(message.createdAt).toLocaleTimeString()}
+                    </Typography>
+                  </Stack>
+                </Grid>
+              </Grid>
+            ))}
         {/* scroll to most recent message */}
         <div ref={divRef}></div>
       </Box>
