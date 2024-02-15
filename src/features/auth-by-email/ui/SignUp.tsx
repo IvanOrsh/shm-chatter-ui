@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 
 import { Auth } from "./Auth";
 import { useCreateUser } from "../model/hooks/useCreateUser";
-import { extractApolloErrorMessage } from "../../../utils/error";
+import { extractApolloErrorMessage } from "@shared/config/apolloClientConfig/lib/error";
 import { useLogin } from "../model/hooks/useLogin";
 import { UNKNOWN_ERROR_MESSAGE } from "@shared/constants/errors";
 
