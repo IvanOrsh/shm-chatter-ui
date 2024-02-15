@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Stack, TextField } from "@mui/material";
 
@@ -8,10 +8,11 @@ type AuthProps = {
   submitLabel: string;
   onSubmit: (credentials: { email: string; password: string }) => Promise<void>;
   error?: string;
+  extraFields?: React.ReactNode[];
 };
 
 export function Auth(props: PropsWithChildren<AuthProps>) {
-  const { submitLabel, onSubmit, error, children } = props;
+  const { submitLabel, onSubmit, error, extraFields, children } = props;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,6 +44,7 @@ export function Auth(props: PropsWithChildren<AuthProps>) {
         error={!!error}
         helperText={error}
       />
+      {extraFields}
       <TextField
         type="password"
         label="Password"

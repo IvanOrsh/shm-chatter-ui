@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 import { Auth } from "./Auth";
 import { useCreateUser } from "../model/hooks/useCreateUser";
@@ -11,6 +12,7 @@ import { UNKNOWN_ERROR_MESSAGE } from "@shared/constants/errors";
 export function SignUp() {
   const [error, setError] = useState("");
   const [createUser] = useCreateUser();
+  const [username, setUsername] = useState("");
   const { login } = useLogin();
 
   const onSubmit = async ({
@@ -25,6 +27,7 @@ export function SignUp() {
         variables: {
           createUserInput: {
             email,
+            username,
             password,
           },
         },
@@ -45,7 +48,22 @@ export function SignUp() {
   };
 
   return (
-    <Auth submitLabel="Sign Up" onSubmit={onSubmit} error={error}>
+    <Auth
+      submitLabel="Sign Up"
+      onSubmit={onSubmit}
+      error={error}
+      extraFields={[
+        <TextField
+          type="text"
+          label="Username"
+          variant="outlined"
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+          error={!!error}
+          helperText={error}
+        />,
+      ]}
+    >
       <Link to={"/login"} style={{ alignSelf: "center" }}>
         <Button variant="text" color="secondary">
           Already have an account?
