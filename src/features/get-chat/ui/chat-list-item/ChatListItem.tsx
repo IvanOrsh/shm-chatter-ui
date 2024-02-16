@@ -38,9 +38,9 @@ export default function ChatListItem(props: ChatListItemProps) {
                   variant="body2"
                   color="text.primary"
                 >
-                  Ali Connors
+                  {chat.latestMessage?.user.username || ""}
                 </Typography>
-                {" — I'll be in your neighborhood doing errands this…"}
+                {" " + (chat.latestMessage?.content || "")}
               </>
             }
           />

@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 
 import { graphql } from "@gql/gql";
 import { updateMessages } from "../cache/messages";
+import { updateLatestMessage } from "../cache/latest-message";
 
 const createMessageDocument = graphql(`
   mutation CreateMessage($createMessageInput: CreateMessageInput!) {
@@ -16,6 +17,7 @@ export const useCreateMessage = () => {
     update(cache, { data }) {
       if (data?.createMessage) {
         updateMessages(cache, data.createMessage);
+        updateLatestMessage(cache, data.createMessage);
       }
     },
   });
