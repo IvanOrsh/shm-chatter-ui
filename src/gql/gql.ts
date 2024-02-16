@@ -20,7 +20,7 @@ const documents = {
     "\n  query Chat($_id: String!) {\n    chat(_id: $_id) {\n      ...ChatFragment\n    }\n  }\n": types.ChatDocument,
     "\n  query Chats {\n    chats {\n      ...ChatFragment\n    }\n  }\n": types.ChatsDocument,
     "\n  query Messages($chatId: String!) {\n    messages(chatId: $chatId) {\n      ...MessageFragment\n    }\n  }\n": types.MessagesDocument,
-    "\n  subscription messageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      ...MessageFragment\n    }\n  }\n": types.MessageCreatedDocument,
+    "\n  subscription messageCreated($chatIds: [String!]!) {\n    messageCreated(chatIds: $chatIds) {\n      ...MessageFragment\n    }\n  }\n": types.MessageCreatedDocument,
     "\n  fragment ChatFragment on Chat {\n    _id\n    name\n    latestMessage {\n      ...MessageFragment\n    }\n  }\n": types.ChatFragmentFragmentDoc,
     "\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    user {\n      _id\n      username\n      email\n    }\n  }\n": types.MessageFragmentFragmentDoc,
 };
@@ -70,7 +70,7 @@ export function graphql(source: "\n  query Messages($chatId: String!) {\n    mes
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  subscription messageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      ...MessageFragment\n    }\n  }\n"): (typeof documents)["\n  subscription messageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      ...MessageFragment\n    }\n  }\n"];
+export function graphql(source: "\n  subscription messageCreated($chatIds: [String!]!) {\n    messageCreated(chatIds: $chatIds) {\n      ...MessageFragment\n    }\n  }\n"): (typeof documents)["\n  subscription messageCreated($chatIds: [String!]!) {\n    messageCreated(chatIds: $chatIds) {\n      ...MessageFragment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
