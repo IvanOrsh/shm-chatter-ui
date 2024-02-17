@@ -46,7 +46,7 @@ export default function ChatListItem(props: ChatListItemProps) {
           />
         </ListItemButton>
       </ListItem>
-      <Divider variant="inset" component="li" />
+      <Divider variant="inset" />
     </>
   );
 }

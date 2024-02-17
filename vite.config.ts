@@ -22,7 +22,7 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/auth\/logout/, ""),
       },
-      "api/chats/count": {
+      "/api/chats/count": {
         target: "http://localhost:3000/chats/count",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/chats\/count/, ""),
