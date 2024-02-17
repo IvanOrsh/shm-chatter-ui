@@ -27,6 +27,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/chats\/count/, ""),
       },
+      "/api/messages/count": {
+        target: "http://localhost:3000/messages/count",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/messages\/count/, ""),
+      },
     },
   },
 });

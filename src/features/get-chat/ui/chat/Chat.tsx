@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import { useGetChat } from "@features/get-chat/model/hooks/useGetChat";
 import { useCreateMessage } from "@features/get-chat/model/hooks/useCreateMessage";
 import { useGetMessages } from "@features/get-chat/model/hooks/useGetMessages";
+import { PAGE_SIZE } from "@shared/constants/pagination/page-size";
 
 export default function Chat() {
   const params = useParams();
@@ -25,7 +26,11 @@ export default function Chat() {
   const [createMessage] = useCreateMessage();
 
   // already existing messages for this chat:
-  const { data: messages } = useGetMessages({ chatId: chatId! });
+  const { data: messages } = useGetMessages({
+    chatId: chatId!,
+    skip: 0,
+    limit: PAGE_SIZE,
+  });
 
   const divRef = useRef<HTMLDivElement | null>(null);
 
