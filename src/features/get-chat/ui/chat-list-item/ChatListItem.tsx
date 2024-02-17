@@ -5,10 +5,13 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import ListItemButton from "@mui/material/ListItemButton";
+import Box from "@mui/material/Box";
 
 // TODO: Move router routes config to shared?
 import { router } from "@app/providers/router";
 import { Chat } from "@gql/graphql";
+
+import styles from "./ChatListItem.module.css";
 
 type ChatListItemProps = {
   chat: Chat;
@@ -31,7 +34,13 @@ export default function ChatListItem(props: ChatListItemProps) {
           <ListItemText
             primary={chat.name}
             secondary={
-              <>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "0.5rem",
+                }}
+              >
                 <Typography
                   sx={{ display: "inline" }}
                   component="span"
@@ -40,8 +49,10 @@ export default function ChatListItem(props: ChatListItemProps) {
                 >
                   {chat.latestMessage?.user.username || ""}
                 </Typography>
-                {" " + (chat.latestMessage?.content || "")}
-              </>
+                <div className={styles.Content}>
+                  {" " + (chat.latestMessage?.content || "")}
+                </div>
+              </Box>
             }
           />
         </ListItemButton>

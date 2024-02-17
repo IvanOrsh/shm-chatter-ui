@@ -13,8 +13,12 @@ export const useCountMessages = (chatId: string) => {
     if (!res.ok) {
       snackVar(UNKNOWN_ERROR_SNACK_MESSAGE);
     } else {
-      const { messages } = await res.json();
-      setMessagesCount(messages);
+      try {
+        const { messages } = await res.json();
+        setMessagesCount(messages);
+      } catch (err) {
+        setMessagesCount(0);
+      }
     }
   }, [chatId]);
 

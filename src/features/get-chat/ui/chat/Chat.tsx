@@ -15,18 +15,25 @@ import { useGetChat } from "@features/get-chat/model/hooks/useGetChat";
 import { useCreateMessage } from "@features/get-chat/model/hooks/useCreateMessage";
 import { useGetMessages } from "@features/get-chat/model/hooks/useGetMessages";
 import { PAGE_SIZE } from "@shared/constants/pagination/page-size";
+import { useCountMessages } from "@features/get-chat/model/hooks/useCountMessages";
+import InfiniteScroll from "react-infinite-scroller";
 
 export default function Chat() {
   const params = useParams();
   const location = useLocation();
   const chatId = params._id;
   const [message, setMessage] = useState("");
+  const { countMessages, messagesCount } = useCountMessages(chatId!);
+
+  useEffect(() => {
+    countMessages();
+  }, [countMessages]);
 
   const { data } = useGetChat({ _id: chatId! });
   const [createMessage] = useCreateMessage();
 
   // already existing messages for this chat:
-  const { data: messages } = useGetMessages({
+  const { data: messages, fetchMore } = useGetMessages({
     chatId: chatId!,
     skip: 0,
     limit: PAGE_SIZE,
@@ -52,8 +59,10 @@ export default function Chat() {
   };
 
   useEffect(() => {
-    setMessage("");
-    scrollToBottom();
+    if (messages?.messages && messages.messages.length <= PAGE_SIZE) {
+      setMessage("");
+      scrollToBottom();
+    }
   }, [location, messages]);
 
   return (
@@ -71,46 +80,67 @@ export default function Chat() {
           overflow: "auto",
         }}
       >
-        {messages &&
-          [...messages.messages]
-            .sort(
-              (a, b) =>
-                new Date(a.createdAt).getTime() -
-                new Date(b.createdAt).getTime()
-            )
-            .map((message) => (
-              <Grid
-                container
-                alignItems="center"
-                marginBottom="1rem"
-                key={message._id}
-              >
-                <Grid item xs={2} lg={1}>
-                  <Avatar
-                    src=""
-                    sx={{
-                      height: "52px",
-                      width: "52px",
-                    }}
-                  />
-                </Grid>
+        <InfiniteScroll
+          pageStart={0}
+          isReverse={true}
+          loadMore={() =>
+            fetchMore({
+              variables: {
+                chatId: chatId!,
+                skip: messages?.messages.length || 0,
+                limit: PAGE_SIZE,
+              },
+            })
+          }
+          hasMore={
+            messages && messagesCount
+              ? messages.messages.length < messagesCount
+              : false
+          }
+          useWindow={false}
+        >
+          {messages &&
+            [...messages.messages]
+              .sort(
+                (a, b) =>
+                  new Date(a.createdAt).getTime() -
+                  new Date(b.createdAt).getTime()
+              )
+              .map((message) => (
+                <Grid
+                  container
+                  alignItems="center"
+                  marginBottom="1rem"
+                  key={message._id}
+                >
+                  <Grid item xs={2} lg={1}>
+                    <Avatar
+                      src=""
+                      sx={{
+                        height: "52px",
+                        width: "52px",
+                      }}
+                    />
+                  </Grid>
 
-                <Grid item xs={10} lg={11}>
-                  <Stack>
-                    <Paper sx={{ width: "fit-content" }}>
-                      <Typography sx={{ padding: "0.9rem" }}>
-                        {message.content}
+                  <Grid item xs={10} lg={11}>
+                    <Stack>
+                      <Paper sx={{ width: "fit-content" }}>
+                        <Typography sx={{ padding: "0.9rem" }}>
+                          {message.content}
+                        </Typography>
+                      </Paper>
+                      <Typography variant="caption" sx={{ ml: "0.25rem" }}>
+                        {new Date(message.createdAt).toLocaleTimeString()} -{" "}
+                        {new Date(message.createdAt).toLocaleDateString()}
                       </Typography>
-                    </Paper>
-                    <Typography variant="caption" sx={{ ml: "0.25rem" }}>
-                      {new Date(message.createdAt).toLocaleTimeString()}
-                    </Typography>
-                  </Stack>
+                    </Stack>
+                  </Grid>
                 </Grid>
-              </Grid>
-            ))}
-        {/* scroll to most recent message */}
-        <div ref={divRef}></div>
+              ))}
+          {/* scroll to most recent message */}
+          <div ref={divRef}></div>
+        </InfiniteScroll>
       </Box>
 
       {/* message bar */}
