@@ -9,11 +9,15 @@ import { ChatListAdd } from "@features/add-chat";
 import { useGetChats } from "../model/hooks/useGetChats";
 import { usePath } from "@app/providers/router";
 import { useMessageCreated } from "../model/hooks/useMessageCreated";
+import { PAGE_SIZE } from "@shared/constants/pagination/page-size";
 
 export default function ChatList() {
   const [chatListAddVisible, setChatListAddVisible] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState("");
-  const { data } = useGetChats();
+  const { data } = useGetChats({
+    skip: 0,
+    limit: PAGE_SIZE,
+  });
   const { path } = usePath();
 
   useMessageCreated({
